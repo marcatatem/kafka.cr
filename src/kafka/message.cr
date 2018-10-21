@@ -21,6 +21,11 @@ module Kafka
       return nil if tmp.key_len == 0
       Bytes.new(tmp.key, tmp.key_len)
     end
+    
+    def offset : Int64?
+      return nil if @msg.null?
+      return @msg.value.offset
+    end
 
     def valid?
       !@msg.null?
