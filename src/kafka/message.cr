@@ -26,6 +26,11 @@ module Kafka
       return nil if @msg.null?
       return @msg.value.offset
     end
+    
+    def err : Int32?
+      return nil if @msg.null?
+      return @msg.value.err
+    end
 
     def valid?
       !@msg.null?
