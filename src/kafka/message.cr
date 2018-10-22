@@ -28,8 +28,8 @@ module Kafka
     end
     
     def timestamp : Int64?
-      return nil if @msg.null? || @msg.timestamp.null?
-      @msg.timestamp.timestamp
+      return nil if @msg.null? || @msg.value.timestamp.null?
+      @msg.value.timestamp.timestamp
     end
     
     def err : Int32?
