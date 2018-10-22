@@ -39,6 +39,11 @@ lib LibKafkaC
   OFFSET_END       = -1_i64 # /**< Start consuming from end of kafka
 
   PARTITION_UNASSIGNED = -1
+  
+  struct MessageTimestamp
+    type : Int32
+    timestamp : Int64
+  end
 
   struct Message
     err : Int32       # rd_kafka_resp_err_t err;   /**< Non-zero for error signaling. */
@@ -58,6 +63,7 @@ lib LibKafkaC
     offset : Int64 # int64_t offset;            /**< Consume:
     #    * - Message offset (or offset for error
     # *   if \c err!=0 if applicable).
+    timestamp : MessageTimestamp
     _priv : Void*
   end
 
