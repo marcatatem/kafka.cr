@@ -61,6 +61,8 @@ lib LibKafkaC
     _priv : Void*
   end
 
+  alias Int64T = LibC::LongLong
+
   fun message_timestamp = rd_kafka_message_timestamp(rkmessage : Message*, tstype : TimestampTypeT*) : Int64T
 
   enum TimestampTypeT
