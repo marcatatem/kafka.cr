@@ -47,8 +47,8 @@ lib LibKafkaC
   end
 
   struct MessageTimestamp
-    timestamp_type : MessageTimestampType
-    timestamp : Int64
+    property :type : MessageTimestampType
+    property :timestamp : Int64
   end
 
   struct Message
