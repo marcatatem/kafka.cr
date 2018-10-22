@@ -41,7 +41,6 @@ lib LibKafkaC
   PARTITION_UNASSIGNED = -1
   
   struct MessageTimestamp
-    type : Int32
     timestamp : Int64
   end
 
