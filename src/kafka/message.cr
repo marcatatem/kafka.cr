@@ -1,10 +1,7 @@
 require "./lib_rdkafka.cr"
 
-
 module Kafka
-
   class Message
-
     def initialize(@msg : LibKafkaC::Message*)
     end
 
@@ -21,17 +18,17 @@ module Kafka
       return nil if tmp.key_len == 0
       Bytes.new(tmp.key, tmp.key_len)
     end
-    
+
     def offset : Int64?
       return nil if @msg.null?
       return @msg.value.offset
     end
-    
+
     def timestamp : Int64?
-      return nil if @msg.null? || @msg.value.timestamp.null?
-      @msg.value.timestamp.timestamp
+      return nil if @msg.null?
+      @msg.value.timestamp.try &.timestamp
     end
-    
+
     def err : Int32?
       return nil if @msg.null?
       return @msg.value.err
@@ -45,9 +42,8 @@ module Kafka
       @msg
     end
 
-    def finalize()
+    def finalize
       LibKafkaC.message_destroy(@msg) unless @msg.null?
     end
   end
-
 end

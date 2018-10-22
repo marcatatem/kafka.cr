@@ -39,8 +39,15 @@ lib LibKafkaC
   OFFSET_END       = -1_i64 # /**< Start consuming from end of kafka
 
   PARTITION_UNASSIGNED = -1
-  
+
+  enum MessageTimestampType
+    MSG_TIMESTAMP_NOT_AVAILABLE,
+    MSG_TIMESTAMP_CREATE_TIME,
+    MSG_TIMESTAMP_LOG_APPEND_TIME
+  end
+
   struct MessageTimestamp
+    timestamp_type : MessageTimestampType
     timestamp : Int64
   end
 
