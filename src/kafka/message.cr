@@ -26,8 +26,7 @@ module Kafka
 
     def timestamp : Int64?
       return nil if @msg.null?
-      p @msg.value.timestamp
-      @msg.value.timestamp.try &.timestamp
+      LibKafka.message_timestamp(@msg, out tstype)
     end
 
     def err : Int32?

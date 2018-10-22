@@ -40,17 +40,6 @@ lib LibKafkaC
 
   PARTITION_UNASSIGNED = -1
 
-  enum MessageTimestampType
-    MSG_TIMESTAMP_NOT_AVAILABLE,
-    MSG_TIMESTAMP_CREATE_TIME,
-    MSG_TIMESTAMP_LOG_APPEND_TIME
-  end
-
-  struct MessageTimestamp
-    @type : MessageTimestampType
-    @timestamp : Int64
-  end
-
   struct Message
     err : Int32       # rd_kafka_resp_err_t err;   /**< Non-zero for error signaling. */
     rkt : Topic       # rd_kafka_topic_t *rkt;     /**< Topic */
@@ -69,8 +58,15 @@ lib LibKafkaC
     offset : Int64 # int64_t offset;            /**< Consume:
     #    * - Message offset (or offset for error
     # *   if \c err!=0 if applicable).
-    timestamp : MessageTimestamp
     _priv : Void*
+  end
+
+  fun message_timestamp = rd_kafka_message_timestamp(rkmessage : Message*, tstype : TimestampTypeT*) : Int64T
+
+  enum TimestampTypeT
+    RdKafkaTimestampNotAvailable  = 0
+    RdKafkaTimestampCreateTime    = 1
+    RdKafkaTimestampLogAppendTime = 2
   end
 
   fun conf_new = rd_kafka_conf_new : ConfHandle
