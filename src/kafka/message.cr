@@ -27,6 +27,11 @@ module Kafka
       return @msg.value.offset
     end
     
+    def timestamp : Int64?
+      return nil if @msg.null? || @msg.timestamp.null?
+      @msg.timestamp.timestamp
+    end
+    
     def err : Int32?
       return nil if @msg.null?
       return @msg.value.err
